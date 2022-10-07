@@ -15,7 +15,6 @@ const refs = {
 refs.input.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 
 function onInput(e) {
-  e.preventDefault();
   const countryName = e.target.value.trim();
   console.log(countryName);
   if (!countryName) {
@@ -23,10 +22,10 @@ function onInput(e) {
     refs.info.innerHTML = '';
     return;
   }
-  fetchCountries(countryName).then(unpackingData).catch(onFetchError);
+  fetchCountries(countryName).then(onFetchSuccess).catch(onFetchError);
 }
 
-function unpackingData(countryInfo) {
+function onFetchSuccess(countryInfo) {
   console.log(countryInfo);
   if (countryInfo.length > 10) {
     Notify.info(
